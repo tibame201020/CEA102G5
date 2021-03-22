@@ -42,6 +42,11 @@ div.pagination{
 	margin:20 auto;
 }
 
+div.masonry-item{
+	min-height:320px;
+
+}
+
 
 </style>
 
@@ -116,7 +121,7 @@ div.pagination{
 
 <input type=hidden id=total value=${total}>
 <span>每頁筆數</span><select id=nums>
-	<c:forEach var="val" begin="1" end="10">
+	<c:forEach var="val" begin="6" end="10">
 		<option ${(nums == val)?'selected':''} value=${val}>${val}筆</option>
 	</c:forEach>
 </select>
@@ -131,7 +136,7 @@ div.pagination{
 <hr>
 
 
-<div class="product-grid">
+<div class="masonry-grid-post">
 </div>
 
 						<div class="pagination">
@@ -148,7 +153,7 @@ div.pagination{
 var contextPath = "${pageContext.request.contextPath}";
 
 var nowPage = ${(not empty page)?page:1};
-$("div.product-grid").on("click",".lesContainer",function(){
+$("div.masonry-grid-post").on("click",".lesContainer",function(){
 	lesInfo($(this).attr("data-lesID"));
 });
 

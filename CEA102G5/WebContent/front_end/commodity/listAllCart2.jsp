@@ -79,6 +79,7 @@
 											</tr>
 										</tbody>
 									</table>
+										<input id="checkAll" type='button' value='全選'> 
 									<div class="proceed-to-checkout">
 										<input type='submit' value='確認結帳'>
 										<input type="hidden" name="action"  value="CHECKOUT">
@@ -111,7 +112,21 @@
 
 
 <script>
-
+	$("#checkAll").click(function(){
+		if($(this).val() == "全選"){
+			$(".checkComID").each(function(){
+				$(this).prop('checked',true);
+			});
+			calculate();
+			$(this).val("全不選");
+		}else{
+			$(".checkComID").each(function(){
+				$(this).prop('checked',false);
+			});
+			calculate();
+			$(this).val("全選");
+		}
+	});
 
 	function calculate(){
 		var total = 0;
@@ -199,6 +214,7 @@
 		     success:function(data){
 		    	 $(this).remove();
 				 $(".mini-cart-icon").attr("data-count",data);
+				 calculate();
 		     }
 		});
 	});

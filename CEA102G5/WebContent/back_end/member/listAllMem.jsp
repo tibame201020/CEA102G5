@@ -15,6 +15,10 @@
 <head>
 <title>會員資料</title>
 
+
+
+</head>
+<body>
 <style>
   table#table-1 {
 	background-color: #CCCCFF;
@@ -34,7 +38,7 @@
 
 <style>
   table {
-	width: 1400px;
+	width: 1000px;
 	background-color: white;
 	margin-top: 5px;
 	margin-bottom: 5px;
@@ -48,15 +52,6 @@
   }
 </style>
 
-</head>
-<body bgcolor=#E8FFE8>
-
-<table id="table-1">
-	<tr><td>
-		 <h3>會員資料</h3>
-		 <h4><a href="<%=request.getContextPath()%>/back_end/member/memSelect.jsp"><img src="<%=request.getContextPath()%>/resource/images/back1.gif" width="100" height="32" border="0">回首頁</a></h4>
-	</td></tr>
-</table>
 
 <table>
 	<tr>

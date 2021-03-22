@@ -125,8 +125,29 @@
 		<servlet-name>ComcServlet</servlet-name>
 		<url-pattern>/back_end/commodity_category/comc.do</url-pattern>
 	</servlet-mapping>
+		<servlet-mapping>
+		<servlet-name>ComcServlet</servlet-name>
+		<url-pattern>/front_end/commodity_category/comc.do</url-pattern>
+	</servlet-mapping>
+	
 
-
+	<servlet>
+		<servlet-name>ComfServlet</servlet-name>
+		<servlet-class>com.commodity_favorite.controller.ComfServlet</servlet-class>
+	</servlet>
+	<servlet-mapping>
+		<servlet-name>ComfServlet</servlet-name>
+		<url-pattern>/commodity_category/comf.do</url-pattern>
+	</servlet-mapping>
+	<servlet-mapping>
+		<servlet-name>ComfServlet</servlet-name>
+		<url-pattern>/back_end/commodity/comf.do</url-pattern>
+	</servlet-mapping>
+	<servlet-mapping>
+		<servlet-name>ComfServlet</servlet-name>
+		<url-pattern>/front_end/commodity/comf.do</url-pattern>
+	</servlet-mapping>
+	
 	<servlet>
 		<servlet-name>ComPicReader</servlet-name>
 		<servlet-class>com.commodity.controller.ComPicReader</servlet-class>

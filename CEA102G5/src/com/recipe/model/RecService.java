@@ -83,8 +83,8 @@ public class RecService {
 	}
 	
 	//­×§ï­¹ÃÐª¬ºA
-	public RecVO updateStatus(Integer recID) {
-		dao.updateStatus(recID);
+	public RecVO updateStatus(Integer recStatus,Integer recID,Integer recBonus) {
+		dao.updateStatus(recStatus,recID,recBonus);
 		RecVO recVO = getOneRec(recID);
 		
 		

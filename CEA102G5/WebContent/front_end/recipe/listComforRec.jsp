@@ -8,6 +8,39 @@
     <meta http-equiv="X-UA-Compatible" content="IE=edge">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
 </head>
+<style>
+  table#table-1 {
+	background-color: #CCCCFF;
+    border: 2px solid black;
+    text-align: center;
+  }
+  table#table-1 h4 {
+    color: red;
+    display: block;
+    margin-bottom: 1px;
+  }
+  h4 {
+    color: blue;
+    display: inline;
+  }
+</style>
+
+<style>
+  table {
+	width: 600px; 
+	background-color: white;
+	margin-top: 5px;
+	margin-bottom: 5px;
+  }
+  table, th, td {
+    border: 1px solid #CCCCFF;
+  }
+  th, td {
+    padding: 5px;
+    text-align: center;
+  }
+</style>
+
     <div id="header">
         <label>
         	<b>按商品關鍵字搜尋: </b>
@@ -92,7 +125,7 @@
 	function generateIngTable(data){
 		console.log(data[0].comName);
 		var html = "";
-		html += "<table id='ingTable'><tr><td>食材名稱</td><td>食材熱量</td><td>食材碳水化合物</td><td>食材蛋白質</td><td>食材脂質</td></tr>";
+		html += "<table id='ingTable'><tr><td>食材名稱</td><td>食材熱量</td><td>食材碳水化合物</td><td>食材蛋白質</td><td>食材脂質</td><td></td><td></td></tr>";
 		for(let i = 0; i<data.length; i++){
 			html += "<tr>";
 			html += "<input type='hidden' name='alreadyChecked' value='"+data[i].comID +"'>";

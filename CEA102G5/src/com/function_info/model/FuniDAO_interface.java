@@ -1,11 +1,10 @@
 package com.function_info.model;
 
-import java.util.Set;
+import java.util.List;
 
 public interface FuniDAO_interface {
-	public void insert(FuniVO funiVO);
-	public void update(FuniVO funiVO);
-	public void delete(Integer funID);
-	public FuniVO findByID(Integer funID);
-	public Set<FuniVO> getALl();
+	
+	public FuniVO findByPrimaryKey(Integer funID);
+	public List<FuniVO> getAll();
+
 }

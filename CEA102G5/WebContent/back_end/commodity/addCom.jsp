@@ -11,7 +11,11 @@
 <head>
 <meta http-equiv="X-UA-Compatible" content="IE=edge,chrome=1"/>
 <title>商品資料新增</title>
+</head>
+<body>
 
+
+<h3>商品資料新增:</h3>
 <style>
   table#table-1 {
 	background-color: #CCCCFF;
@@ -31,7 +35,7 @@
 
 <style>
   table {
-	width: 450px;
+	width: 800px;
 	background-color: white;
 	margin-top: 1px;
 	margin-bottom: 1px;
@@ -43,19 +47,6 @@
     padding: 1px;
   }
 </style>
-
-</head>
-<body bgcolor=#E8FFE8>
-
-<table id="table-1">
-	<tr><td>
-		 <h3>商品資料新增 - addCom.jsp</h3></td><td>
-		 <h4><a href="<%=request.getContextPath()%>/back_end/commodity/comSelectPage.jsp"><img src="<%=request.getContextPath() %>/resource/images/food.jpg" width="100" height="100" border="0">回首頁</a></h4>
-	</td></tr>
-</table>
-
-<h3>資料新增:</h3>
-
 <%-- 錯誤表列 --%>
 <c:if test="${not empty errorMsgs}">
 	<font style="color:red">請修正以下錯誤:</font>
@@ -91,10 +82,6 @@
 	<tr>
 		<td>商品圖片</td>
 		<td><input type="file" name="upfile1" id="myFile"></td>
-	</tr>
-	<tr>
-		<td>商品圖片2</td>
-		<td><input type="file" name="upfile2" id="myFile"></td>
 	</tr>
 	<tr>
 		<td>商品簡介</td>

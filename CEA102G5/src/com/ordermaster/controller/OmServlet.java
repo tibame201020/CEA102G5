@@ -67,9 +67,8 @@ public class OmServlet extends HttpServlet {
 				OmVO omVO = odSvc.addOd(checkOutList,memID, memrID, omPrice, memrVO.getMemrName(),memrVO.getMemrPhone(),memrVO.getMemrAddress());
 				
 				request.setAttribute("omVO", omVO);//¨S¥Î¨ì
-				String url = "/front_end/credit/credit.jsp";
-				RequestDispatcher successView = request.getRequestDispatcher(url);
-				successView.forward(request, response);
+				String url = "/CEA102G5/front_end/credit/credit.jsp";
+				response.sendRedirect(url);
 				
 				
 			} catch (Exception e) {
@@ -160,6 +159,9 @@ public class OmServlet extends HttpServlet {
 			successView.forward(request, response);
 		}
 		
+		if("credit".equals(action)) {
+			response.sendRedirect("/CEA102G5/front_end/credit/success.jsp");
+		}
 		
 	}
 

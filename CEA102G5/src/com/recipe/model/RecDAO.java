@@ -473,7 +473,7 @@ public class RecDAO implements RecDAO_interface {
 	}
 
 	@Override
-	public void updateStatus(Integer recID) {
+	public void updateStatus(Integer recStatus,Integer recID, Integer recBonus) {
 		Connection con = null;
 		PreparedStatement pstmt = null;
 		
@@ -481,8 +481,8 @@ public class RecDAO implements RecDAO_interface {
 			con = ds.getConnection();
 			pstmt = con.prepareStatement(UPDATE_STATUS_STMT);
 			
-				pstmt.setInt(1, 2);
-				pstmt.setInt(2, 10);
+				pstmt.setInt(1, recStatus);
+				pstmt.setInt(2, recBonus);
 				pstmt.setInt(3, recID);
 				
 				pstmt.executeUpdate();

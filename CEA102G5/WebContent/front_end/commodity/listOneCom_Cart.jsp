@@ -7,7 +7,7 @@
 <%-- 此頁暫練習採用 Script 的寫法取值 --%>
 
 <%
-  ComVO comVO = (ComVO) request.getAttribute("comVO"); //CartServlet.java(Controller), 存入req的comVO物件
+  ComVO comVO = (ComVO) request.getAttribute("comVO"); //12CartServlet.java(Controller), 存入req的comVO物件
 %>
 <%MemVO memVO = (MemVO) session.getAttribute("memVO"); %>
 
@@ -60,9 +60,9 @@
                                             <input type='hidden' id='memID' value='${memVO.memID}'>
                                             <input type='hidden' id='location' value='<%=request.getServletPath()%>'>
                                         </form>
-                                        <div class="product-tool" style='cursor:pointer'>
+                                        <div class="product-tool" style='cursor:pointer' id='favorite'>
                                              <img id='addFav'  src='<%=request.getContextPath()%>/resource/images/heartempty.png' width='50px' height='50px'>
-                                              <font size='+2' style='margin-left:20px; vertical-align:bottom;'>加入收藏</font>
+                                             <font size='+2' style='margin-left:20px; vertical-align:bottom;'>加入收藏</font>
                                         </div>
                                     </div>
                                 </div>
@@ -84,7 +84,7 @@
                                                     <br>
                                                     <h4>商品基本營養成分</h4>
                                                                                                                 商品熱量:${comVO.comCal}g<br>
-                                                                                                                商品碳水化合物含量:${comVO.comCarb}g<br>
+                                                                                                                商品碳水化合物含量:${comVO.comCarb}g<br> 
                                                                                                                 商品蛋白質含量:${comVO.comPro}g<br>
                                                                                                                 商品脂質含量:${comVO.comFat}g<br>
                                                 </p>
@@ -99,7 +99,7 @@
                                                     <ul class="comment-list">
                                                         <li>
                                                             <div class="comment-container">
-                                                                <div class="comment-author-vcard">
+                                                                <div class="comment-author-vcard" style="height:150px;">
                                                                     <img alt="" src="<%=request.getContextPath()%>/ComPicReader${comComtVO.memPicSrc}&pic=1" width='50px' height='50px' />
                                                                 </div>
                                                                 <div class="comment-author-info">
@@ -141,7 +141,15 @@
                                                                     </c:if>
 
                                                                     <p>${comComtVO.odMessage}</p>
+                                                                    
+                                                                    
+                                                                    
                                                                 </div>
+                                                                <c:if test="${!empty comComtVO.odResponse}">
+                                                                	<div style="background-color:#f5f5f5;margin:0px 70px;">
+                                                                		賣家回覆:<br>${comComtVO.odResponse}
+                                                                	</div>
+                                                                </c:if>
                                                             </div>
                                                         </li>                             
                                                     </ul>
@@ -329,8 +337,83 @@
 		});
 		
 	 });
-		 
+	 //收藏讀取用
+	window.onload = function(){
+
+		let comID = $("#comID").val();
+		let memID = $("#memID").val();
+
+		if(memID == ''){
+			let html=""
+			html="<img id='addFav'  src='<%=request.getContextPath()%>/resource/images/heartempty.png' width='50px' height='50px'>";
+			html+="<font size='+2' style='margin-left:20px; vertical-align:bottom;'>加入收藏</font>";
+			document.getElementById("favorite").innerHTML = html;
+		}else{
+			$.ajax({
+				url:"<%=request.getContextPath()%>/front_end/commodity/comf.do",
+				type:"post",
+				data:{
+					action:"firstload",
+					comID:comID,
+					memID:memID,
+				},
+				cache:false,
+				ifModified :true,
+				success : function(date){
+					if(date==="true"){
+						let html=""
+							html="<img id='addFav'  src='<%=request.getContextPath()%>/resource/images/heart.png' width='50px' height='50px'>";	
+							html+="<font size='+2' style='margin-left:20px; vertical-align:bottom;'>取消收藏</font>";
+							document.getElementById("favorite").innerHTML = html;
+					}else{
+						let html=""
+						html="<img id='addFav'  src='<%=request.getContextPath()%>/resource/images/heartempty.png' width='50px' height='50px'>";	
+						html+="<font size='+2' style='margin-left:20px; vertical-align:bottom;'>加入收藏</font>";
+						document.getElementById("favorite").innerHTML = html;	
+					}
+				}
+			});
+		}
+	}
 	 
+	 //收藏按鈕用
+	 $("#favorite").click(function(){
+			let comID = $("#comID").val();
+			let memID = $("#memID").val();
+			let location = $("#location").val();
+
+			if(memID == ''){
+				window.location.href = "<%=request.getContextPath()%>/cart/comCart.do?action=ADD&location="+location+"&comID="+comID+"";
+				return;
+			}
+
+			$.ajax({
+				url:"<%=request.getContextPath()%>/front_end/commodity/comf.do",
+				type:"post",
+				data:{
+					action:"insertByRedis",
+					comID:comID,
+					memID:memID,
+				},
+				cache:false,
+				ifModified :true,
+				success : function(date){
+					if(date==="true"){
+						let html=""
+							html="<img id='addFav'  src='<%=request.getContextPath()%>/resource/images/heart.png' width='50px' height='50px'>";	
+							html+="<font size='+2' style='margin-left:20px; vertical-align:bottom;'>取消收藏</font>";
+							document.getElementById("favorite").innerHTML = html;
+					}else{
+						let html=""
+						html="<img id='addFav'  src='<%=request.getContextPath()%>/resource/images/heartempty.png' width='50px' height='50px'>";	
+						html+="<font size='+2' style='margin-left:20px; vertical-align:bottom;'>加入收藏</font>";
+						document.getElementById("favorite").innerHTML = html;	
+					}
+				}
+			});
+			
+		 });
+		 
 	
 	</script>
 

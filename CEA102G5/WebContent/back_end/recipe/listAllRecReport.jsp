@@ -94,6 +94,36 @@
 	  $(this).appendTo('body');
 	});
 	
+	$("#showRecr").on("click",".checkRec",function(){
+		let recID = $(this).next().val();
+		window.location.href = "<%=request.getContextPath()%>/back_end/recipe/rec.do?action=GetRecDetail_ByrecID&recID="+recID+"";
+	});
+	
+	$("#showRecr").on("click",".updateRec",function(){
+		let recID = $(this).parent().prev().children().next().val();
+		let btn = $(this);
+			$.ajax({
+				url:"<%=request.getContextPath()%>/recipe/rec.do",
+				type:"post",
+				data:{
+					action:"updateStatus",
+					recID:recID,
+					recBonus:"10",
+					recStatus:"0",
+				},
+				dataType:"text",
+				context:btn,
+				cache:false,
+				ifModified:true,
+				success:function(){
+						$(this).attr("disabled",true);
+						$(this).parent().prev().prev().prev().text("已停權");
+				}
+			});	
+		
+	});
+	
+	
 	$("#msgBtn").click(function(){
 
 		var msgRecrID = $("#msgRecrID").val();
@@ -132,7 +162,7 @@
 	});
 	var locate;
 	$("#showRecr").on("click",".reply",function(){
-		locate = $(this).parent().prev().prev();
+		locate = $(this).parent().prev().prev().prev();
 		var recrIDStr = $(this).next().val();
 		$("#msgRecrID").val(recrIDStr);
 		$("#replyModal").modal("show");
@@ -186,6 +216,7 @@
 		var html = "";
 		html += "<table><tr><th>食譜主檔ID</th><th>食譜標題</th><th>食譜圖片</th><th>檢舉者ID</th><th>食譜檢舉內容</th><th>食譜審核狀態</th><th>食譜回覆內容</th><th>查看食譜明細</th>";
 		if(data[0].recrStatus == '0'){
+			html += "<th>下架該食譜</th>";
 			html += "<th>回覆食譜檢舉</th></tr>";
 		}else{
 			html += "</tr>";
@@ -205,8 +236,10 @@
 			}else{
 				html += "<td>"+data[i].recrReplyContent+"</td>";				
 			} 
-			html += "<td><input id='checkRec' type='button' value='查看食譜明細'></td>";
+			html += "<td><input class='checkRec' type='button' value='查看食譜明細'>";
+			html += "<input class='checkRecID' type='hidden' value='"+data[i].recID+"'></td>";
 			if(data[i].recrStatus == '0'){
+				html += "<td><input class='updateRec' type='button' value='下架該食譜'>";
 				html += "<td><input class='reply' type='button' value='回覆食譜檢舉'>";
 			}
 			html += "<input type='hidden' id='recrID' value='"+data[i].recrID+"'></td></tr>";

@@ -4,13 +4,14 @@ import java.sql.*;
 import java.util.ArrayList;
 import java.util.List;
 import java.util.Map;
+import java.util.Set;
 
 import javax.naming.Context;
 import javax.naming.InitialContext;
 import javax.naming.NamingException;
 import javax.sql.DataSource;
 
-
+import com.commodity_favorite.model.ComfService;
 import com.mysql.cj.protocol.Resultset;
 import com.util.model.ComCommentVO;
 
@@ -52,10 +53,14 @@ public class ComDAO implements ComDAO_interface {
 	private static final String DELETE =
 	"DELETE FROM COMMODITY WHERE COM_ID=?";
 	
-	private static final String GET_ALL_COM_COMMENT = "SELECT M.MEM_ID,MEM_NAME,COM_ID,ORDD_MESSAGE,ORDD_POINT \r\n" + 
+	private static final String GET_ALL_COM_COMMENT = 
+			"SELECT M.MEM_ID,MEM_NAME,COM_ID,ORDD_MESSAGE,ORDD_POINT,ORDD_RESPONSE \r\n" + 
 			"FROM ORDER_DETAIL D LEFT JOIN order_master M ON D.ORDM_ID = M.ORDM_ID\r\n" + 
 			"LEFT JOIN MEMBER_INFO I ON M.MEM_ID = I.MEM_ID\r\n" + 
 			"WHERE COM_ID=? AND ORDD_MESSAGE IS NOT NULL";
+	private static final String GET_ALL_COMBYCOMID = 
+			"SELECT * FROM myproject.commodity where COM_ID=?";
+	
 	@Override
 	public void insert(ComVO comVO) {
 		Connection con = null;
@@ -483,6 +488,7 @@ public class ComDAO implements ComDAO_interface {
 				comComtVO.setMemName(rs.getString("MEM_NAME"));
 				comComtVO.setOdMessage(rs.getString("ORDD_MESSAGE"));
 				comComtVO.setOdPoint(rs.getInt("ORDD_POINT"));
+				comComtVO.setOdResponse(rs.getString("ORDD_RESPONSE"));
 				
 				list.add(comComtVO);
 			}
@@ -519,6 +525,87 @@ public class ComDAO implements ComDAO_interface {
 		}
 		
 		return list;
+	}
+
+	@Override
+	public List<ComVO> getFavorite(int memID) {
+		Connection con = null;
+		PreparedStatement pstmt = null;
+		ResultSet rs = null;
+		ComVO comVO = null;
+		List<ComVO> list = new ArrayList<ComVO>();
+		String memIDS =Integer.toString(memID);
+		try {
+			ComfService comfSvc =new ComfService();
+			Set<String> set = comfSvc.favCom(memIDS);
+			System.out.println(set);
+			con = ds.getConnection();
+			pstmt = con.prepareStatement(GET_ALL_COMBYCOMID);
+			for(String comIDS:set) {
+				Integer comID = Integer.parseInt(comIDS);
+				pstmt.setInt(1, comID);
+				rs = pstmt.executeQuery();
+				
+				while(rs.next()) {
+					comVO = new ComVO();
+					comVO.setComID(rs.getInt("COM_ID"));
+					comVO.setComcID(rs.getInt("COMC_ID"));
+					comVO.setComName(rs.getString("COM_NAME"));
+					comVO.setComPrice(rs.getInt("COM_PRICE"));
+
+					comVO.setComContent(rs.getString("COM_CONTENT"));
+					comVO.setComStatus(rs.getInt("COM_STATUS"));
+					comVO.setComWeight(rs.getInt("COM_WEIGHT"));
+					comVO.setComUnit(rs.getString("COM_UNIT"));
+					comVO.setComCal(rs.getFloat("COM_CAL"));
+					comVO.setComCarb(rs.getFloat("COM_CARB"));
+					comVO.setComPro(rs.getFloat("COM_PRO"));
+					comVO.setComFat(rs.getFloat("COM_FAT"));
+					comVO.setComProp(rs.getString("COM_PROP"));
+					comVO.setComTime(rs.getDate("COM_TIME"));
+					
+					list.add(comVO);
+				}
+			}
+			
+			
+		} catch (SQLException se) {
+			throw new RuntimeException("A database error occured."+se.getMessage());
+		} finally {
+			if(rs!=null) {
+				try {
+					rs.close();
+				} catch (SQLException e) {
+					// TODO Auto-generated catch block
+					e.printStackTrace();
+				}				
+			}
+			
+			if(pstmt!=null) {
+				try {
+					pstmt.close();
+				} catch (SQLException e) {
+					// TODO Auto-generated catch block
+					e.printStackTrace();
+				}				
+			}
+			if(con != null) {
+				try {
+					con.close();
+				} catch (SQLException e) {
+					// TODO Auto-generated catch block
+					e.printStackTrace();
+				}				
+			}
+		}
+		
+		return list;
+	}
+	public static void main(String[] args) {
+		ComDAO com =new ComDAO();
+		List list=com.getFavorite(1);
+		ComVO comvo =(ComVO) list.get(1);
+		System.out.println(comvo.getComID());
 	}
 
 }

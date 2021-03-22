@@ -11,6 +11,7 @@ import javax.servlet.annotation.WebServlet;
 import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
+import javax.servlet.http.HttpSession;
 
 import org.json.JSONArray;
 
@@ -37,8 +38,7 @@ public class ComcServlet extends HttpServlet {
 	 * @see HttpServlet#doGet(HttpServletRequest request, HttpServletResponse response)
 	 */
 	protected void doGet(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
-		// TODO Auto-generated method stub
-		response.getWriter().append("Served at: ").append(request.getContextPath());
+		doPost(request, response);
 	}
 
 	/**
@@ -48,6 +48,7 @@ public class ComcServlet extends HttpServlet {
 		
 		request.setCharacterEncoding("UTF-8");
 		String action = request.getParameter("action");
+		HttpSession session = request.getSession();
 		
 		if("insert".equals(action)) {
 			try {
@@ -125,14 +126,11 @@ public class ComcServlet extends HttpServlet {
 			Integer comcID = new Integer(request.getParameter("comcID"));
 			ComcService comcSvc = new ComcService();
 			List<ComVO> list = comcSvc.getComsByComcIDwithSales(comcID);
-			String jsonStr = new JSONArray(list).toString();
 			
-			response.setContentType("text/plain");
-			response.setCharacterEncoding("UTF-8");
-			PrintWriter out = response.getWriter();
-			out.print(jsonStr);
-			out.flush();
-			out.close();
+			session.setAttribute("category_list", list);
+			String url = "/front_end/commodity/comindex_category.jsp";
+			RequestDispatcher successView = request.getRequestDispatcher(url);
+			successView.forward(request, response);
 			
 		}
 		

@@ -36,7 +36,7 @@
 
 <style>
   table {
-	width: 1000px;
+	width: 800px; 
 	background-color: white;
 	margin-top: 5px;
 	margin-bottom: 5px;
@@ -74,15 +74,13 @@
 
 
 			<td>
-			  <FORM METHOD="post" ACTION="<%=request.getContextPath()%>/recipe/rec.do" style="margin-bottom: 0px;">
 			    <input type="button" id='verify' value="¼f®Ö­¹ÃÐ">
 			    <input type="hidden" id="recID" name="recID" value="${recVO.recID}">
-			    <input type="hidden" name="requestURL"	value="<%=request.getServletPath()%>">
-			    <input type="hidden" name="action" value="verifyRec">
-			    </FORM>
+				 <input type="button" id='reject' value="°h¦^­¹ÃÐ">
+
 			</td>
 			<td>
-			  <FORM METHOD="post" ACTION="<%=request.getContextPath()%>/recipe/rec.do" style="margin-bottom: 0px;">
+			  <FORM METHOD="post" ACTION="<%=request.getContextPath()%>/back_end/recipe/rec.do" style="margin-bottom: 0px;">
 			    <input type="submit" value="¬d¬Ý­¹ÃÐ©ú²Ó">
 			    <input type="hidden" name="recID"	value="${recVO.recID}">
 			    <input type="hidden" name="action" value="GetRecDetail_ByrecID"></FORM>
@@ -103,6 +101,31 @@
 			}
 		});
 	});
+	$("body").on("click","#reject",function(){
+		var recID = $(this).prev().val();
+		var tabletr = $(this).parents(".tabletr");
+		$.ajax({
+			url:"<%=request.getContextPath()%>/recipe/rec.do",
+			type:"post",
+			data:{
+				action:"updateStatus",
+				recID : recID,
+				recBonus:"10",
+				recStatus:"3"
+			},
+			cache:false,
+			ifModified:true,
+			dataType : "text",
+			context:tabletr,
+			success:function(data){
+				$(this).css({"background-color":"#ddd"});
+				$(this).children("td.status").text("¤w°h¦^");
+				$(this).children("td.status").next().children().children("#verify").next().next().attr('disabled',true);
+				console.log(data);
+			}
+		});
+	});
+	
 	
 	$("body").on("click","#verify",function(){
 		$(".tabletr").css({"background-color":"white"});
@@ -117,6 +140,8 @@
 			data:{
 				action:"updateStatus",
 				recID : recID,
+				recBonus:"10",
+				recStatus:"2"
 			},
 			cache:false,
 			ifModified:true,

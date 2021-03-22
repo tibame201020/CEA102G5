@@ -9,7 +9,7 @@ import com.recipe_step.model.RecsVO;
 
 public interface RecDAO_interface {
 	public void insertWithReciRecs(RecVO recVO,List<ReciVO> reciList,List<RecsVO> recsList);
-	public void updateStatus(Integer recID);
+	public void updateStatus(Integer recStatus,Integer recID,Integer recBonus);
 	public void updateBonus(Integer memID);
     public void update(RecVO recVO,List<ReciVO> reciList,List<RecsVO> recsList);
     public void delete(Integer recID);

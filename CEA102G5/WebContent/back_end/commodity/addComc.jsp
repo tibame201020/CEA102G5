@@ -47,14 +47,9 @@
 </head>
 <body bgcolor=#E8FFE8>
 
-<table id="table-1">
-	<tr><td>
-		 <h3>商品分類新增 - addCom.jsp</h3></td><td>
-		 <h4><a href="<%=request.getContextPath()%>/back_end/commodity/comSelectPage.jsp"><img src="<%=request.getContextPath()%>/resource/images/food.jpg" width="100" height="100" border="0">回首頁</a></h4>
-	</td></tr>
-</table>
 
-<h3>資料新增:</h3>
+
+<h3>商品分類資料新增:</h3>
 
 
 

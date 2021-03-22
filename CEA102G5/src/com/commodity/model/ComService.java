@@ -85,5 +85,8 @@ public class ComService {
 	public List<ComCommentVO> getAllComComment(Integer comID){
 		return dao.getAllComComment(comID);
 	}
+	public List<ComVO> getFavorite(int memID){
+		return dao.getFavorite(memID);
+	}
 	
 }

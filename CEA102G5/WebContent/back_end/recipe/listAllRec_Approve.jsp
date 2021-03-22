@@ -70,7 +70,7 @@
 			<td><img src="<%=request.getContextPath()%>/ComPicReader${recVO.recPicSrc}&pic=1" height="100" width="100"></td>
 			<td class='status' value='${recVO.recStatus}'>${(recVO.recStatus==1)?'審核中':'已生效'}</td>
 			<td>
-			  <FORM METHOD="post" ACTION="<%=request.getContextPath()%>/recipe/rec.do" style="margin-bottom: 0px;">
+			  <FORM METHOD="post" ACTION="<%=request.getContextPath()%>/back_end/recipe/rec.do" style="margin-bottom: 0px;">
 			    <input type="submit" value="查看食譜明細">
 			    <input type="hidden" name="recID"	value="${recVO.recID}">
 			    <input type="hidden" name="action" value="GetRecDetail_ByrecID"></FORM>
@@ -82,15 +82,6 @@
 
 <script type="text/javascript">
 	
-	$(document).ready(function(){
-		$(".status").each(function(){
-			
-			if($(this).text()=="已生效"){
-				
-				$(this).next().children().children().attr("disabled",true);
-			}
-		});
-	});
 	
 	$("body").on("click","#verify",function(){
 		$(".tabletr").css({"background-color":"white"});

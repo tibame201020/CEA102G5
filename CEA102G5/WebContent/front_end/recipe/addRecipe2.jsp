@@ -77,7 +77,7 @@
         margin-bottom: 50px;
     }
     #step{
-        border: 2px solid black;
+        box-shadow:3px 3px 5px 6px #cccccc; 
         border-radius: 4px;
         width: 800px;
         text-align:center;
@@ -91,9 +91,7 @@
         background-color:antiquewhite;
         width: 120px;
         height: 50px;
-        cursor: pointer;
-        border: 1px;
-        border-radius: 10px;
+        cursor: pointer; 
         
     }
     button:hover{
@@ -132,7 +130,8 @@
     	height:150px;
     }
     #showIngredient{
-    	 
+    	 box-shadow:3px 3px 5px 6px #cccccc; 
+    	 margin-bottom:50px;
     }
     #ingTable{
     	width:780px;
@@ -161,26 +160,31 @@
     }
     label.labelPic{
     	vertical-align: top;
+    	width:200px;
+    	height:150px;
+    }
+    div.perStep{
+    	width:100%;
     }
 
     </style>
     
 <h2 class="page-title text-center" style='color:black;'>Add Recipe</h2><hr>
 
-<form method="post" action="<%=request.getContextPath() %>/recipe/rec.do" enctype="multipart/form-data">
+<form method="post" action="<%=request.getContextPath() %>/front_end/recipe/rec.do" enctype="multipart/form-data">
     
     <div id="all">
         <div id="left">
              <font size="+2">標題</font><br>
-             <input type="text" id="text" name="title" placeholder="請填寫食譜標題" ><br>
+             <input type="text" id="text" name="title" required="required" placeholder="請填寫食譜標題" ><br>
              <font size="+2">請上傳圖片</font><br>
              <label id="labelUpload">
-                 <input id="myFile" type="file" name="recipePic" style="display: none;">
+                 <input id="myFile" type="file" name="recipePic" required="required" style="display: none;">
                 <img id="img" src="<%=request.getContextPath()%>/resource/images/upload.png" alt="" width="250">
              </label><br><br><br>
              
              <font size="+2">食譜簡介</font><br>
-             <textarea  class='intro' name="intro" id="ta"  placeholder="輸入食譜描述(最多200字)" maxlength="200"></textarea><br><br>
+             <textarea  class='intro' name="intro" id="ta"  required="required" placeholder="輸入食譜描述(最多200字)" maxlength="200"></textarea><br><br>
              <font size="+2">份量(人份)</font> <font size="+2" id="fontSize">烹調時間(分鐘)</font><br><br>
              <select name="size" id="size">
                  <option value="-1">未設定</option>
@@ -212,7 +216,7 @@
 
              
             <font size="+2">步驟</font><br><br>
-            <input type="button" onclick="addBox()" value="添加步驟">
+            <input type="button" id="addBtn" value="添加步驟">
             <div id="step">
 
                 
@@ -295,7 +299,12 @@
     }
 
     $("body").on("click",".imgRemove",function(){
-        $(this).parent("div").remove();
+        $(this).parent("div.perStep").remove();
+        var count = 1;
+        $(".indexClass").each(function(){
+            $(this).text(count);
+            count++;
+        });
         
     });
 
@@ -318,11 +327,19 @@
                     alert('別亂傳，請上傳圖片檔!');
                 }
         });
-
+	
+    $("#addBtn").click(function(){
+    	addBox();
+    	 var count = 1;
+         $(".indexClass").each(function(){
+             $(this).text(count);
+             count++;
+         });
+    });
         
-    var count = 10;
+    var count = 1000;
     var count2 = 0;
-    var count3 = 30;
+    var count3 = 3000;
     var indexCount = 1;
 	function addBox(){
             var div = document.createElement('div');
@@ -356,6 +373,7 @@
             imgRemove.setAttribute('onclick','remove()');
             count3++;
             div.setAttribute('id',count2);
+            div.setAttribute('class',"perStep");
             label.setAttribute('id',count);
             label.setAttribute('class','labelPic');
             textBox.id = count3;
@@ -373,15 +391,11 @@
             document.getElementById(count).appendChild(img);
             document.getElementById(count2).appendChild(textBox);
             document.getElementById(count2).appendChild(imgRemove);
-           
-            
-            
-            
             // if(count>=15){
             // var btn = document.getElementById('btn');
             //     btn.setAttribute('disabled','disabled');
             // }
-            console.log("New elements id : " + textBox.id);
+            console.log("New elements id : " + textBox.id); 
         }
 
     $( function() {

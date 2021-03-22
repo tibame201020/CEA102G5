@@ -65,11 +65,17 @@
             </div>
         </div>
     </div>
+    
+<%--     <c:if test="${!empty openAddPage}"> --%>
+<!-- 	    <script type="text/javascript"> -->
+<!--  	    	$("#addModal").modal('show'); -->
+<!-- 	    </script> -->
+<%--     </c:if> --%>
  
  
 
 <script type="text/javascript">
-var servletPathName ="${pageContext.request.requestURI}";
+	var servletPathName ="${pageContext.request.requestURI}";
 </script>
 
 

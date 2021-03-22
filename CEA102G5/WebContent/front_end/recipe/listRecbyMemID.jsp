@@ -89,7 +89,17 @@
 <%@ include file="page2.file" %>
 
 <script type="text/javascript">
-	
+	$(document).ready(function(){
+		$(".status").each(function(){
+				if($(this).attr("value") == "3"){
+					$(this).text("已退回");
+				}
+				
+				if($(this).attr("value") == "0"){
+					$(this).text("已下架");
+				}
+		});
+	});
 
 	
 	

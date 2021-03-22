@@ -1,12 +1,13 @@
 package com.admin_info.model;
 
-import java.util.Set;
+import java.util.List;
 
 public interface AdmiDAO_interface {
-	public AdmiVO insert(AdmiVO admiVO, Integer[] funID);
-	public void update(AdmiVO admiVO);
-	public void delete(Integer admID);
-	public AdmiVO findByID(Integer admID);
+	public AdmiVO insert (AdmiVO admiVO,Integer[] funID);
+	public void update (AdmiVO admiVO ,Integer[] funID);
+	public void delete (Integer admID);
+	public void back(Integer admID);
+	public AdmiVO findByPrimaryKey(Integer admID);
 	public AdmiVO findByAccount(String admAccount);
-	public Set<AdmiVO> getALl();
+	public List<AdmiVO> getAll();
 }

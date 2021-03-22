@@ -11,6 +11,10 @@
 <meta http-equiv="X-UA-Compatible" content="IE=edge,chrome=1"/>
 <title>商品資料修改 - update_com_input.jsp</title>
 
+
+
+</head>
+<body bgcolor='white'>
 <style>
   table#table-1 {
 	background-color: #CCCCFF;
@@ -43,17 +47,7 @@
   }
 </style>
 
-</head>
-<body bgcolor='white'>
-
-<table id="table-1">
-	<tr><td>
-		 <h3>商品資料修改</h3>
-		 <h4><a href="<%=request.getContextPath()%>/back_end/commodity/comSelectPage.jsp"><img src="<%=request.getContextPath()%>/resource/images/back1.gif" width="100" height="32" border="0">回首頁</a></h4>
-	</td></tr>
-</table>
-
-<h3>資料修改:</h3>
+<h3>商品資料修改:</h3>
 
 <%-- 錯誤表列 --%>
 <c:if test="${not empty errorMsgs}">

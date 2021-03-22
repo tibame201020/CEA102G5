@@ -8,11 +8,7 @@
 <title>後台商品管理</title>
 </head>
 <body bgcolor=#E8FFE8 onload="load()">
-<img src="<%=request.getContextPath()%>/resource/images/food.jpg" height="100" width="100"><font size="+3">後台商品管理</font>
-<hr><p>
-<h3>This is the Home page for Commodity: Home</h3>
-<h4><a href="<%=request.getContextPath()%>/front_end/commodity/comindex.jsp"><img src="<%=request.getContextPath()%>/resource/images/3.jpg" width="70" height="70" border="0">商城首頁</a></h4>
-<a href="<%=request.getContextPath()%>/back_end/member/memSelect.jsp">會員管理</a>
+
 
 <h4>商品查詢:</h4>
 <%-- 錯誤表列 --%>
@@ -26,7 +22,7 @@
 </c:if>
 
 <ul>
-  <li><a href="<%=request.getContextPath()%>/back_end/commodity/listAllCom.jsp">所有商品列表</a>   <br><br></li>
+ 
   
   
   <li>
@@ -124,25 +120,6 @@
 
 
 
-<h4><font>新增商品:</font></h4>
-<ul>
-  <li><a href='<%=request.getContextPath()%>/back_end/commodity/addCom.jsp'>ADD COMMODITY</a> </li>
-</ul>
-
-<h4><font color="blue">新增商品分類:</font></h4>
-<ul>
-  <li><a href='<%=request.getContextPath()%>/back_end/commodity/addComc.jsp'>ADD COMMODITY</a> </li>
-</ul>
-
-<h4><font color="blue">商品分類管理:</font></h4>
-<ul>
-  <li><a href='<%=request.getContextPath()%>/back_end/commodity/listAllComc.jsp'>MANAGE COMMODITY_CATEGORY</a> </li>
-</ul>
-
-<h4><font color="blue">訂單主檔列表管理:</font></h4>
-<ul>
-  <li><a href='<%=request.getContextPath()%>/back_end/commodity/listAllOm.jsp'>MANAGE ORDER_MASTER</a> </li>
-</ul>
 
 <!-- =========================================以下為 datetimepicker 之相關設定========================================== -->
 

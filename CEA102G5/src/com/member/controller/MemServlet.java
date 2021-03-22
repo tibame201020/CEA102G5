@@ -24,6 +24,7 @@ import com.commodity.model.ComVO;
 import com.member.model.MailService;
 import com.member.model.MemService;
 import com.member.model.MemVO;
+import com.recipe.model.RecVO;
 
 /**
  * Servlet implementation class MemServlet
@@ -82,9 +83,12 @@ public class MemServlet extends HttpServlet {
 						String location = (String)session.getAttribute("location");
 						if(location!=null) {
 							ComVO comVO = (ComVO)session.getAttribute("comVO");
+							RecVO recVO = (RecVO)session.getAttribute("recVO");
 							session.removeAttribute("location");
 							session.removeAttribute("comVO");
+							session.removeAttribute("recVO");
 							request.setAttribute("comVO", comVO);
+							request.setAttribute("recVO", recVO);
 							System.out.println(location);
 							RequestDispatcher successView = request.getRequestDispatcher(location);
 							successView.forward(request, response);

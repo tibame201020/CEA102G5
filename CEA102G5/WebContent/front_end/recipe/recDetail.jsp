@@ -61,6 +61,8 @@
     }
     #recipeContent{
         margin-top: 50px;
+        box-shadow:3px 3px 5px 6px #cccccc; 
+        width:670px; 
         
     }
     #size{
@@ -83,7 +85,7 @@
     }
     table {
 	width: 200px;
-	background-color: #E8FFE8;
+	box-shadow:3px 3px 5px 6px #cccccc;
 	margin-top: 5px;
 	margin-bottom: 5px;
     display: inline-block;
@@ -92,21 +94,21 @@
     
       width: 1000px;
       margin-top: 30px;
-      margin-left: 82px;
+      margin-left: 10px;
       
   }
   #leftTable,td{
       margin-left: 5px;
       padding: 6px;
-      text-align: center;
+      text-align: center; 
   }
   #rightTable{
       margin-left: 100px;
   }
   #recStep{
       width: 800px;
-      border: 1px solid;
-      margin-left: 80px;
+      box-shadow:3px 3px 5px 6px #cccccc;
+      margin-left: 10px;
       margin-top: 50px;
   }
   #stepblock{
@@ -125,15 +127,19 @@
     }
     #cotent{
     	margin-top:30px;
+    	
+    	box-shadow:3px 3px 5px 6px #cccccc;
     }
 
     #stepText{
         margin-left: 50px;
-        border: 1px solid black;
+        box-shadow:3px 3px 5px 6px #cccccc;
         width:400px ;
         height:200px;
         display: inline-block;
         vertical-align : top;
+        font-size: x-large;
+        padding: 30px;
     }
     #stepPic{
         vertical-align : top;
@@ -152,7 +158,7 @@
     }
     #calculate{
         display: inline-block;
-        border: 1px solid sienna;
+        box-shadow:3px 3px 5px 6px #cccccc; 
         vertical-align : top;
         margin-left: 130px;
     }
@@ -176,8 +182,8 @@
 		margin-left: 195px;
 	}
 	#board{
-        margin-left: 80px;
-        border: 1px solid sienna;
+        margin-left: 10px;
+        box-shadow:3px 3px 5px 6px #cccccc;
         border-radius: 10px;
         padding: 10px;
         margin-top: 80px;
@@ -260,7 +266,7 @@
             <h2 id='titleText'>${recVO.recName}</h2>
             <img src="<%=request.getContextPath()%>/ComPicReader${recVO.recPicSrc}&pic=1" alt="" width="300px">
         </div>
-        <div id='author'>
+        <div id='author' >
             <img src="<%=request.getContextPath()%>/ComPicReader<%=memVO.getMemPicSrc()%>&pic=1" alt="" width="100px">
             <span id="authorName"><%=memVO.getMemName()%></span>
             <br><br><span>此作者共有<%=list.size()%>食譜</span><br>

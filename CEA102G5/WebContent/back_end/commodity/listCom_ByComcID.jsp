@@ -19,6 +19,11 @@
 <html>
 <head><title>分類商品 - listcom_ByComcID.jsp</title>
 
+
+
+</head>
+<body bgcolor='white'>
+<h3>所有商品資料:</h3>
 <style>
   table#table-2 {
 	background-color: #CCCCFF;
@@ -37,8 +42,9 @@
 </style>
 
 <style>
+
   table {
-	width: 1600px;
+	width: 1000px;
 	background-color: white;
 	margin-top: 5px;
 	margin-bottom: 5px;
@@ -52,16 +58,6 @@
   }
 </style>
 
-</head>
-<body bgcolor='white'>
-
-<h4>此頁練習採用 EL 的寫法取值:</h4>
-<table id="table-2">
-	<tr><td>
-		 <h3>分類商品 - listcom_ByComcID.jsp</h3>
-		 <h4><a href="<%=request.getContextPath()%>/back_end/commodity/comSelectPage.jsp"><img src="<%=request.getContextPath()%>/resource/images/back1.gif" width="100" height="32" border="0">回首頁</a></h4>
-	</td></tr>
-</table>
 
 <table>
 	<tr>
@@ -79,6 +75,8 @@
 		<th>商品脂肪(g)</th>
 		<th>商品特性</th>
 		<th>商品創建時間</th>
+		<th></th>
+		<th></th>
 	</tr>
 	
 	
@@ -127,9 +125,7 @@
 	<%}%>
 </table>
 
-<br>本網頁的路徑:<br><b>
-   <font color=blue>request.getServletPath():</font> <%=request.getServletPath()%><br>
-   <font color=blue>request.getRequestURI(): </font> <%=request.getRequestURI()%> </b>
+
 <script type="text/javascript">
 var servletPathName ="${pageContext.request.requestURI}";
 </script>

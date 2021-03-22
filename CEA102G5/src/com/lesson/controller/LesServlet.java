@@ -125,6 +125,7 @@ public class LesServlet extends HttpServlet {
 				res.sendRedirect(req.getContextPath()+"/back_end/lesson/listAllLesson.jsp");
 				return;
 			} catch (Exception e) {
+				req.setAttribute("lesVO", lesVO);
 				RequestDispatcher failureView = req.getRequestDispatcher("/back_end/lesson/addLesson.jsp");
 				failureView.forward(req, res);
 				return;

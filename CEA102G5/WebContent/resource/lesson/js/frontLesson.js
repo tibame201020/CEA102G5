@@ -106,25 +106,23 @@ function load() {
 					type : "POST",
 					dataType : "json",
 					success : function(data) {
-						$("div.product-grid").empty();
+						$("div.masonry-grid-post").empty();
 						for (let i = 0; i < data.length; i++) {
-							let lesContainer = $("<div class='col-md-4 col-sm-6 product-item lesContainer text-center mb-3'>");
+							let lesContainer = $("<div class='col-md-4 col-sm-6 masonry-item lesContainer text-center mb-3'>");
 							lesContainer.attr("data-lesID", data[i].lesID);
-							let picContainer = $("<div class=product-thumb></div>");
+							let picContainer = $("<div class=post-thumbnail></div>");
 							let img = $("<a><img src=" + contextPath + data[i].pic
 									+ " height=100></a>");
-							let titleAction=$("<div class='product-action'>"+data[i].coaName+"</div>");
-							picContainer.append(img,titleAction);
-							let titleContainer = $("<div class=product-info></div>");
-							let text1 = $("<div class=text>" + data[i].lesName
-									+ "</div>");
-							let text2 = $("<div class=text>" + data[i].lesDate
-									+ "</div>");
-							let text3 = $("<div class=text>" + data[i].lesTime
-									+ "</div>");
-							titleContainer.append(text1, text2, text3);
+							
+							picContainer.append(img);
+							let titleContainer = $("<div class=post-content></div>");
+							let entryMeta = $("<div class=entry-meta></div>");
+							let datePrice = $("<span class='posted-on'><i class='ion-calendar'></i><span>"+data[i].lesDate+"<div>"+data[i].lesTime+"</div></span></span><span>$"+data[i].lesPrice+"</span>");
+							entryMeta.append(datePrice);
+							let text = $("<a href='#'><div class='entry-title'>"+data[i].coaName+":"+data[i].lesName+"</div></a>")
+							titleContainer.append(entryMeta,text);
 							lesContainer.append(picContainer,titleContainer);
-							$("div.product-grid").append(lesContainer);
+							$("div.masonry-grid-post").append(lesContainer);
 						}
 						pageHandle();
 					}

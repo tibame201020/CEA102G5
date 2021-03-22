@@ -17,5 +17,6 @@ public interface ComDAO_interface {
     public List<ComCommentVO> getAllComComment(Integer comID);
     //萬用複合查詢
     public List<ComVO> getAll(Map<String,String[]> map);
+    public List<ComVO> getFavorite(int memID);
 
 }

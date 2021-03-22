@@ -17,7 +17,7 @@
 				<div class="section pt-7 pb-7" width='1000px'>
 					<div class="container">
 						<div class="row">
-							<div class="col-md-12">
+							<div class="col-md-12" style="width:1000px;">
 								<div class="wishlist-wrap">
 									<table class="table shop-cart">
 										<thead>

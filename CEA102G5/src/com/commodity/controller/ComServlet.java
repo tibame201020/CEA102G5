@@ -283,21 +283,12 @@ public class ComServlet extends HttpServlet {
 						is.close();
 
 				} catch (Exception e) {
-					errorMsgs.add("有問題");
+					errorMsgs.add("圖片1有問題");
 				}
 				
 				byte[] comPicture2 =null;
 				
-				try {
-						Part part = request.getPart("upfile2");
-						InputStream is = part.getInputStream();
-						comPicture2 = new byte[is.available()];
-						is.read(comPicture2);
-						is.close();
 
-				} catch (Exception e) {
-					errorMsgs.add("有問題");
-				}
 				
 				String comContent = request.getParameter("comContent");
 				int comStatus = Integer.parseInt(request.getParameter("comStatus"));
@@ -375,7 +366,6 @@ public class ComServlet extends HttpServlet {
 		
 		//來自comSelectPage.jsp的複合查詢請求
 		if("listCom_ByCompositeQuery".equals(action)) {
-			
 			try {
 				HttpSession session = request.getSession();//???
 				Map<String, String[]> map = (Map<String, String[]>) session.getAttribute("map");//???
@@ -387,6 +377,28 @@ public class ComServlet extends HttpServlet {
 				//查詢完成 準備轉交
 				request.setAttribute("listCom_ByCompositeQuery", list);
 				String url = "/back_end/commodity/listCom_ByCompositeQuery.jsp";
+				RequestDispatcher successView = request.getRequestDispatcher(url);
+				successView.forward(request, response);
+				
+			} catch (Exception e) {
+				e.printStackTrace();
+			}
+			
+			
+		}
+		//來自shopSlidebar.jsp的複合查詢請求 akuma0320
+		if("listCom_ByCompositeQueryFS".equals(action)) {
+			try {
+				HttpSession session = request.getSession();//???
+				Map<String, String[]> map = (Map<String, String[]>) session.getAttribute("map");//???
+				LinkedHashMap<String, String[]> map1 = new LinkedHashMap<String, String[]>(request.getParameterMap());
+				session.setAttribute("map", map1);
+				map = map1;
+				ComService comSvc = new ComService();
+				List<ComVO> list = comSvc.getAll(map);
+				//查詢完成 準備轉交
+				session.setAttribute("category_list", list);
+				String url = "/front_end/commodity/comindex_category.jsp";
 				RequestDispatcher successView = request.getRequestDispatcher(url);
 				successView.forward(request, response);
 				

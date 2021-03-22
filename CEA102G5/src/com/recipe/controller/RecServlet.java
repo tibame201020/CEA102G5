@@ -77,7 +77,6 @@ public class RecServlet extends HttpServlet {
 			RecService recSvc = new RecService();
 			List<RecVO> list = recSvc.getRecByStatus(2);
 			String jsonStr = new JSONArray(list).toString();
-
 			response.setContentType("text/html");
 			response.setCharacterEncoding("UTF-8");
 			PrintWriter out = response.getWriter();
@@ -198,7 +197,7 @@ public class RecServlet extends HttpServlet {
 				RecService recSvc = new RecService();
 				recSvc.addRec(memID, recName, recPic, recContent, recSize, recCookTime, totalCal, totalCarb, totalPro,
 						totalFat, recStatus, recBonus, ingComID, ingNums, listPart, recsContent);
-				String url = "/back_end/recipe/listAllRec.jsp";
+				String url = "/front_end/recipe/listRecbyMemID.jsp";
 				RequestDispatcher successView = request.getRequestDispatcher(url);
 				successView.forward(request, response);
 				
@@ -348,9 +347,10 @@ public class RecServlet extends HttpServlet {
 		
 		if("updateStatus".equals(action)) {
 			Integer recID = new Integer(request.getParameter("recID"));
-			
+			Integer recBonus = new Integer(request.getParameter("recBonus"));
+			Integer recStatus = new Integer(request.getParameter("recStatus"));
 			RecService recSvc = new RecService();
-			RecVO recVO = recSvc.updateStatus(recID);
+			recSvc.updateStatus(recStatus,recID,recBonus);
 			
 			PrintWriter out = response.getWriter();
 			response.setContentType("text/plain");
@@ -454,8 +454,8 @@ public class RecServlet extends HttpServlet {
 			String text = request.getParameter("selectText");
 			RecService recSvc = new RecService();
 			List<RecVO> list = recSvc.getAllByCondition(type, text);
-			request.setAttribute("conditionList", list);
-			String url = "/front_end/recipe/recIndex.jsp";
+			session.setAttribute("conditionList", list);
+			String url = "/front_end/recipe/recIndex_condition.jsp";
 			RequestDispatcher successView = request.getRequestDispatcher(url);
 			successView.forward(request, response);
 		}
