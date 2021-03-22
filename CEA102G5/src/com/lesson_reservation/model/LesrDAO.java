@@ -31,7 +31,8 @@ public class LesrDAO implements LesrDAO_interface {
 	private static final String GET_ONE = 
 		"SELECT * FROM lesson_reservation where les_ID=? and mem_ID=? ";
 	private static final String GET_BY_MEM = 
-		"SELECT * FROM lesson_reservation where mem_ID=? order by les_ID";
+		 "select a.les_id, a.mem_id ,a.lesr_status,a.lesr_reason,a.lesr_comments,a.lesr_answer,b.les_date from lesson_reservation a join lesson b on a.LES_ID=b.LES_ID where a.mem_ID=? order by b.les_date";
+		
 	private static final String GET_BY_LESSON = 
 		"SELECT * FROM lesson_reservation where les_ID=? order by mem_ID";
 	private static final String DELETE = 
@@ -40,6 +41,8 @@ public class LesrDAO implements LesrDAO_interface {
 		"UPDATE lesson_reservation set lesr_comments=?,lesr_answer=?,lesr_Status=?,lesr_Reason=?, lesr_time=? where les_ID = ? and mem_ID=?";
 	private static final String UPDATELES = 
 		"UPDATE lesson set les_already=? where les_ID = ?";
+	private static final String SEARCH = 
+		"SELECT * FROM lesson_reservation where mem_ID=? and les_ID =?";
 	@Override
 	public void insert(LesrVO lesrVO) {
 
@@ -294,7 +297,8 @@ public class LesrDAO implements LesrDAO_interface {
 				lesrVO.setLesrAnswer(rs.getString("lesr_answer"));
 				lesrVO.setLesrStatus(rs.getBoolean("lesr_status"));
 				lesrVO.setLesrReason(rs.getString("lesr_reason"));
-				lesrVO.setLesrTime(rs.getDate("lesr_time"));
+				lesrVO.setLesDate(rs.getDate("les_date"));
+				lesrVO.setLesrTimeLong((lesrVO.getLesDate().getTime())/1000);
 				set.add(lesrVO); // Store the row in the vector
 			}
 	
@@ -441,6 +445,55 @@ public class LesrDAO implements LesrDAO_interface {
 		}
 		return list;
 	}
+	
+	@Override
+	public Boolean search(Integer memID, Integer lesID) {
 
+		Boolean bo = false;
+		Connection con = null;
+		PreparedStatement pstmt = null;
+		ResultSet rs = null;
+
+		try {
+
+			con = ds.getConnection();
+			pstmt = con.prepareStatement(SEARCH);
+
+			pstmt.setInt(1, memID);
+			pstmt.setInt(2, lesID);
+
+			rs = pstmt.executeQuery();
+
+			while (rs.next()) {
+				bo = true;
+			}
+		} catch (SQLException se) {
+			throw new RuntimeException("A database error occured. " + se.getMessage());
+			// Clean up JDBC resources
+		} finally {
+			if (rs != null) {
+				try {
+					rs.close();
+				} catch (SQLException se) {
+					se.printStackTrace(System.err);
+				}
+			}
+			if (pstmt != null) {
+				try {
+					pstmt.close();
+				} catch (SQLException se) {
+					se.printStackTrace(System.err);
+				}
+			}
+			if (con != null) {
+				try {
+					con.close();
+				} catch (Exception e) {
+					e.printStackTrace(System.err);
+				}
+			}
+		}
+		return bo;
+	}
 
 }

@@ -116,14 +116,28 @@
 		<img src="<%= request.getContextPath()%>${lesVO.pic}" width="200">
 	</div>
 	<div class=actionContainer>
-		<form METHOD="post" ACTION="<%=request.getContextPath()%>/lesson/les.do">
-			<input type="hidden" name="action" value="buyLesson"> 
-			<input type=submit value=報名>
+	       
+		
+		
+			<input type="hidden" name="les_ID" value="${lesVO.lesID}">		
+		    <input type="hidden" name="mem_ID" value="${sessionScope.memVO.memID}">		     
+		    <c:if test="${empty sessionScope.memVO}">
+		        <input type ="button" onclick="javascript:location.href='http://localhost:8081/CEA102G5/front_end/member/login.jsp'" value="報名"></input>
+		   	 	<input id ="favorite" type="button" value="收藏">
+		   	</c:if>
+		    
+		    <c:if test="${!empty sessionScope.memVO}">
+		    <form METHOD="post" ACTION="<%=request.getContextPath()%>/front_end/lesson.reservation/lesr.do">
+		    <jsp:useBean id="lesrSvc" class="com.lesson_reservation.model.LesrService"></jsp:useBean>
+		    <input type="hidden" name="les_ID" value="${lesVO.lesID}">		
+		    <input type="hidden" name="mem_ID" value="${sessionScope.memVO.memID}">	
+			<input type="hidden" name="action" value="insert"> 
+			<input id="apply" type="submit" value= ${lesrSvc.search(sessionScope.memVO.memID,lesVO.lesID)?"已報名":"報名"}>
 		</form>
-		<form METHOD="post" ACTION="<%=request.getContextPath()%>/lesson/les.do">
-			<input type="hidden" name="action" value="addFavLesson"> 
-			<input type=submit value=收藏>
-		</form>
+		    <jsp:useBean id="lesfSvc" class="com.lesson_favorites.model.LesfService"></jsp:useBean>
+		    	<input id ="favorite" type="button" value= ${lesfSvc.search(sessionScope.memVO.memID,lesVO.lesID)?"已收藏":"收藏"}>
+		    </c:if>	    
+
 	</div>
 </div>
 
@@ -131,6 +145,41 @@
 <c:if test="${!empty lesVO}">
 	lesID = ${lesVO.lesID};
 </c:if>
+
+if($("#favorite").val()=="已收藏"){
+	 $("#favorite").attr("disabled","true");
+}
+
+$("#favorite").on("click",function(){
+	if(memID== -1){		
+		window.location.href="<%=request.getContextPath()%>/front_end/member/login.jsp";
+	}else{
+	$.ajax({
+		url:"<%=request.getContextPath()%>/front_end/lesson.favorites/lesf.do",
+		type:"POST",
+		data:{
+			action:"insert",
+			memID:memID,
+			lesID:lesID,			
+		},
+		cache:false,
+		ifModified:true,
+		success:function(){
+		  $("#favorite").val("已收藏");
+		  $("#favorite").attr("disabled","true");
+		}
+	});
+	}
+	
+});
+
+if($("#apply").val()=="已報名"){
+	 $("#apply").attr("disabled","true");
+}
+$("#apply").on("click",function(){
+	if(memID== -1)
+		window.location.href="<%=request.getContextPath()%>/front_end/member/login.jsp";		
+});
 </script>
 
 

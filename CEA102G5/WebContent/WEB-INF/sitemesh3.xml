@@ -9,21 +9,27 @@
      <decorator>/front_end/decorators/lessonSlidebar.jsp</decorator>
      <decorator>/front_end/decorators/front_end_header.jsp</decorator>
    </mapping>
+   
+   <mapping path="/front_end/lesson.favorites/*">
+     <decorator>/front_end/decorators/memberSlidebar.jsp</decorator>
+     <decorator>/front_end/decorators/front_end_header.jsp</decorator>
+   </mapping>
+   
+   <mapping path="/front_end/lesson.reservation/*">
+     <decorator>/front_end/decorators/memberSlidebar.jsp</decorator>
+     <decorator>/front_end/decorators/front_end_header.jsp</decorator>
+   </mapping>
+   
+   <mapping path="/front_end/reservation/*">
+     <decorator>/front_end/decorators/memberSlidebar.jsp</decorator>
+     <decorator>/front_end/decorators/front_end_header.jsp</decorator>
+   </mapping>
 
   <mapping path="/front_end/commodity/*">
     <decorator>/front_end/decorators/shopSlidebar.jsp</decorator>
     <decorator>/front_end/decorators/front_end_header.jsp</decorator>
   </mapping>
-    <mapping path="/front_end/member_recipient/*">
-    <decorator>/front_end/decorators/shopSlidebar.jsp</decorator>
-    <decorator>/front_end/decorators/front_end_header.jsp</decorator>
-  </mapping>
-      <mapping path="/front_end/ordermaster/*">
-    <decorator>/front_end/decorators/memberSlidebar.jsp</decorator>
-    <decorator>/front_end/decorators/front_end_header.jsp</decorator>
-  </mapping>
-  
-  <mapping path="/front_end/cart/*">
+    <mapping path="/front_end/cart/*">
     <decorator>/front_end/decorators/shopSlidebar.jsp</decorator>
     <decorator>/front_end/decorators/front_end_header.jsp</decorator>
   </mapping>

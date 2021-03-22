@@ -11,11 +11,8 @@
     <script type="text/javascript" src="<%=request.getContextPath()%>/resource/js/popper.min.js"></script>
     <script type="text/javascript" src="<%=request.getContextPath()%>/resource/js/bootstrap.min.js"></script>
     <script type="text/javascript" src="<%=request.getContextPath()%>/resource/js/script2.js"></script>
-	<!-- bootstrap lightbox -->
-    <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.2.1/jquery.min.js"></script>
-	<script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/js/bootstrap.min.js"></script>
+    
     <!-- link -->
-    <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/css/bootstrap.min.css">
     <link rel="stylesheet" href="<%= request.getContextPath()%>/resource/css/table.css">
     <link rel="stylesheet" href="<%=request.getContextPath()%>/resource/css/bootstrap.min.css" type="text/css" media="all" />
     <link rel="stylesheet" href="<%=request.getContextPath()%>/resource/css/font-awesome.min.css" type="text/css" media="all" />
@@ -176,7 +173,7 @@
     <c:set var="les" value="${pageContext.request.contextPath}/front_end/lesson/listQueryLesson.jsp" />
     <c:set var="com" value="${pageContext.request.contextPath}/front_end/commodity/comindex.jsp" />
     <c:set var="mem" value="${pageContext.request.contextPath}/front_end/member/frontMemSelect.jsp" />
-	<c:set var="rec" value="${pageContext.request.contextPath}/front_end/recipe/recIndex.jsp" />
+
 
 <div id="menu-slideout" class="slideout-menu hidden-md-up">
 			<div class="mobile-menu">
@@ -186,7 +183,7 @@
                                     </li>
                                     
                                      <li>
-                                        <a href="${rec}">Recipe</a>
+                                        <a href="#">Recipe</a>
                                     </li>
                                     
                                      <li>
@@ -226,7 +223,7 @@
                             
                             <c:if test="${!empty sessionScope.memVO}">
                             	<li><a href=${mem}>${memVO.memName}</a></li>
-                                <li><a href="<%=request.getContextPath() %>/front_end/member/mem.do?action=logout&location=<%=request.getRequestURI()%>">LogOut</a></li>
+                                <li><a href="<%=request.getContextPath() %>/front_end/member/mem.do?action=logout">LogOut</a></li>
                             </c:if>
                             </ul>
                         </div>
@@ -262,7 +259,7 @@
                                     </li>
                                     
                                      <li>
-                                        <a href="${rec}">Recipe</a>
+                                        <a href="#">Recipe</a>
                                     </li>
                                     
                                      <li>
@@ -285,7 +282,7 @@
                                 </ul>
                             </nav>
                      <div class="btn-wrap">
-                     	<c:if test="${!empty sessionScope.memVO}">
+                     	<c:if test="${!empty memVO}">
                      	<jsp:useBean id="cartSvc" class="com.cart.model.CartService"></jsp:useBean>
                      	<jsp:useBean id="comSvc" class="com.commodity.model.ComService"></jsp:useBean>
                      	<c:set var="cartTotalPrice" value="0" />
@@ -323,8 +320,9 @@
                                         </p>
                                         <p class="buttons">
 <!--                                         購物車頁面 -->
-                                            <a href="<%=request.getContextPath()%>/front_end/commodity/listAllCart2.jsp" class="view-cart">View cart</a>
+                                            <a href="#" class="view-cart">View cart</a>
 <!--                                             結帳頁面 -->
+                                            <a href="#" class="checkout">Checkout</a>
                                         </p>
                                     </div>
                                 </div>

@@ -81,4 +81,7 @@ public class LesrService {
 	public LesrVO getOneReservation(Integer lesID ,Integer memID) {
 		return dao.findByPrimaryKey(lesID , memID);
 	}
+	public Boolean search(Integer memID, Integer lesID) {
+		return dao.search(memID, lesID);
+	}
 }

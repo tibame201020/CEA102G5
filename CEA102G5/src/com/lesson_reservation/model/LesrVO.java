@@ -10,9 +10,27 @@ public class LesrVO implements java.io.Serializable {
 	private Boolean lesrStatus;
 	private String lesrReason;
 	private Date lesrTime;
+	private Date lesDate;
+	private Long lesrTimeLong;
 	
 	public LesrVO() {
 		super();	
+	}
+
+	public Long getLesrTimeLong() {
+		return lesrTimeLong;
+	}
+
+	public void setLesrTimeLong(Long lesrTimeLong) {
+		this.lesrTimeLong = lesrTimeLong;
+	}
+
+	public Date getLesDate() {
+		return lesDate;
+	}
+
+	public void setLesDate(Date lesDate) {
+		this.lesDate = lesDate;
 	}
 
 	public Integer getLesID() {

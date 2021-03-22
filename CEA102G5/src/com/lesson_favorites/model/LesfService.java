@@ -26,6 +26,8 @@ public class LesfService {
 	public Set<LesfVO> getOneLesf(Integer memID) {
 		return dao.findByPrimaryKey(memID);
 	}
-
-	
+   
+	public Boolean search(Integer memID, Integer lesID) {
+		return dao.search(memID, lesID);
+	}
 }

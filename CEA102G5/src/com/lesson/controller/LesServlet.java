@@ -71,7 +71,7 @@ public class LesServlet extends HttpServlet {
 				String lesBeginStr = req.getParameter("lesBegin").trim();
 				java.sql.Date lesBegin = null;
 				if (!lesBeginStr.matches(dateReg)) {
-					errorMsgs.put("lesBegin", "格式錯誤!");
+					errorMsgs.put("lesBegin", "格式錯誤");
 				} else {
 					lesBegin = strToDate(lesBeginStr);
 					lesVO.setLesBegin(lesBegin);
